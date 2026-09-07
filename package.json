@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@cap-js/hana": "^3",
     "@sap/cds": ">=8",
-    "express": "^4"
+    "express": "^4",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
-    "@cap-js/cds-test": "*",
+    "@cap-js/attachments": "^2.2.2",
     "@cap-js/audit-logging": ">=0.8.3",
+    "@cap-js/cds-test": "*",
     "@cap-js/change-tracking": "^1.0.6",
-    "@cap-js/attachments": "^2",
-    "@cap-js/sqlite": ">=1"
+    "@cap-js/sqlite": ">=1",
+    "@sap/cds-dk": "^9"
   },
   "scripts": {
     "watch": "cds watch",
@@ -22,5 +25,12 @@
   "sapux": [
     "app/incidents"
   ],
-  "private": true
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    }
+  }
 }

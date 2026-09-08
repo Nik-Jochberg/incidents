@@ -16,6 +16,7 @@ modules:
     path: gen/srv
     parameters:
       instances: 1
+      memory: 512M
       buildpack: nodejs_buildpack
     build-parameters:
       builder: npm-ci
@@ -34,6 +35,26 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: incidents-db
+
+  - name: incidents-approuter
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      memory: 128M
+      disk-quota: 256M
+    build-parameters:
+      builder: custom
+      commands:
+        - mkdir -p public
+        - cp -R ../incidents/webapp/. public/
+    requires:
+      - name: incidents-auth
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          url: ~{srv-url}
+          forwardAuthToken: true
 
 resources:
   - name: incidents-auth

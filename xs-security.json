@@ -15,5 +15,20 @@
       ],
       "attribute-references": []
     }
-  ]
+  ],
+  "role-collections": [
+    {
+      "name": "nik-cap-incidents-admin",
+      "description": "Admin Incidents App",
+      "role-template-references": [
+        "$XSAPPNAME.admin"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://*.cfapps.eu10-005.hana.ondemand.com/**",
+      "http://localhost:*/**"
+    ]
+  }
 }

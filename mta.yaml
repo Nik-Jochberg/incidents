@@ -11,7 +11,7 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
-  - name: incidents-srv
+  - name: nik-cap-incidents-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -25,18 +25,18 @@ modules:
         properties:
           srv-url: ${default-url}
     requires:
-      - name: incidents-auth
-      - name: incidents-db
+      - name: nik-cap-incidents-auth
+      - name: nik-cap-incidents-db
 
-  - name: incidents-db-deployer
+  - name: nik-cap-incidents-db-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: incidents-db
+      - name: nik-cap-incidents-db
 
-  - name: incidents-approuter
+  - name: nik-cap-incidents-approuter
     type: approuter.nodejs
     path: app/router
     parameters:
@@ -48,7 +48,7 @@ modules:
         - mkdir -p public
         - cp -R ../incidents/webapp/. public/
     requires:
-      - name: incidents-auth
+      - name: nik-cap-incidents-auth
       - name: srv-api
         group: destinations
         properties:
@@ -57,25 +57,21 @@ modules:
           forwardAuthToken: true
 
 resources:
-  - name: incidents-auth
+  - name: nik-cap-incidents-auth
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: incidents-${space}
+        xsappname: nik-cap-incidents-${space}
         tenant-mode: dedicated
-        oauth2-configuration:
-          credential-types:
-            - "binding-secret"
-            - "x509"
         role-collections:
           - name: 'admin (incidents ${org}-${space})'
             description: 'generated'
             role-template-references:
               - '$XSAPPNAME.admin'
-  - name: incidents-db
+  - name: nik-cap-incidents-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana

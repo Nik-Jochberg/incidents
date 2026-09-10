@@ -157,7 +157,8 @@
                         }
                     }
                 }
-            }
+            },
+            "config": {}
         },
         "extends": {
             "extensions": {

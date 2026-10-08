@@ -8,11 +8,3 @@
 
 GET {{host}}/odata/v4/processor/Incidents
 Authorization: Basic alice:wonderland
-
-#####
-#
-# AdminService
-#
-
-GET {{host}}/odata/v4/admin/Customers
-Authorization: Basic alice:wonderland

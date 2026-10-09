@@ -54,28 +54,14 @@ describe('Draft Choreography APIs', () => {
     expect(data.status_code).to.eql('C')
   })
 
-  it (`should re-open the closed incident-${ID}`, async () => {
-    const {status} = await POST `${Incidents}(${ID},${active})/${edit}`
-    expect(status).to.equal(201)
-  })
-
-  it (`should fail setting the status to 'N'`, async () => {
-    const {status} = await PATCH (`${Incidents}(${ID},${draft})`, { status_code: 'N' })
-    expect(status).to.equal(200)
-  })
-
-  it ('should fail to save drafts for closed incidents', async () => {
+  it ('should fail to edit a closed incident', async () => {
     try {
-      await POST `${Incidents}(${ID},${draft})/${activate}`
+      await POST `${Incidents}(${ID},${active})/${edit}`
+      expect.fail('edit of a closed incident must be rejected')
     } catch (error) {
-      expect(error.response.status).to.eql(500)
+      expect(error.response.status).to.eql(400)
       expect(error.response.data.error.message).to.include(`Can't modify a closed incident`)
     }
-  })
-
-  it ('should delete the Draft', async () => {
-    const {status} = await DELETE `${Incidents}(${ID},${draft})`
-    expect(status).to.eql(204)
   })
 
   it ('should delete the Incident', async () => {

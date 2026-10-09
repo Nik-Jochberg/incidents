@@ -3,8 +3,9 @@ const cds = require('@sap/cds')
 describe('Test attachments service', () => {
 
   const { copy, rm, exists, path } = cds.utils; cds.root = path.resolve(__dirname,'..')
-  beforeAll (()=> copy('xmpls/attachments.cds').to('srv/attachments.cds'))
-  afterAll (() => rm('srv/attachments.cds'))
+  const existed = exists('srv/attachments.cds')
+  beforeAll (()=> existed || copy('xmpls/attachments.cds').to('srv/attachments.cds'))
+  afterAll (() => existed || rm('srv/attachments.cds'))
 
   it('should have the srv/attachments.cds file in place', () => {
     expect(exists('srv/attachments.cds')).to.be.true

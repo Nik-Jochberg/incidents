@@ -5,9 +5,9 @@ class ProcessorService extends cds.ApplicationService {
 
     const { Incidents } = this.entities
 
-    this.before ('UPDATE', Incidents, async req => {
+    this.before (['EDIT','UPDATE'], Incidents, async req => {
       let closed = await SELECT.one(1) .from (req.subject) .where `status.code = 'C'`
-      if (closed) req.reject `Can't modify a closed incident!`
+      if (closed) req.reject (400, 'INCIDENT_CLOSED')
     })
 
     this.before (['CREATE','UPDATE'], Incidents, req => {

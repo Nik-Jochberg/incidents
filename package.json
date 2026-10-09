@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@cap-js/attachments": "^2.2.2",
     "@cap-js/hana": "^3",
     "@sap/cds": ">=8",
-    "express": "^4",
-    "@sap/xssec": "^4"
+    "@sap/xssec": "^4",
+    "express": "^4"
   },
   "devDependencies": {
-    "@cap-js/attachments": "^2.2.2",
     "@cap-js/audit-logging": ">=0.8.3",
     "@cap-js/cds-test": "*",
     "@cap-js/change-tracking": "^1.0.6",
@@ -29,7 +29,11 @@
   "cds": {
     "requires": {
       "[production]": {
-        "auth": "xsuaa"
+        "auth": "xsuaa",
+        "attachments": {
+          "kind": "db",
+          "scan": false
+        }
       }
     }
   }

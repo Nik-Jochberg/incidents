@@ -143,6 +143,18 @@
                         "settings": {
                             "editableHeaderContent": false,
                             "entitySet": "Incidents",
+                            "content": {
+                                "header": {
+                                    "actions": {
+                                        "backToList": {
+                                            "press": "ns.incidents.ext.controller.BackToList.onPress",
+                                            "text": "{i18n>backToList}",
+                                            "visible": true,
+                                            "enabled": true
+                                        }
+                                    }
+                                }
+                            },
                             "navigation": {},
                             "controlConfiguration": {
                                 "conversations/@com.sap.vocabularies.UI.v1.LineItem#i18nConversations": {
